@@ -9,9 +9,10 @@ def application(environ, start_response):
         a, b = int(a), int(b)
         add = a + b
         multiply = a * b
-        response_body = html+'<br><br><br>[Add] : '+str(a)+' + '+str(b)+' = '+str(add)+'<br><br>[Multiply] : '+str(a)+' * '+str(b)+' = '+str(multiply)
+        result = "<p style=\"color:red;\">[Add] : %(a)d + %(b)d = %(add)d<br><br>[Multiply] : %(a)d * %(b)d = %(multiply)d</p>"%{'a':a, 'b':b, 'add':add, 'multiply':multiply}
     else:
-        response_body = html
+        result = "<p style=\"font-style:italic; color:gray;\">No Result</p>"
+    response_body = html%{'result':result}
     start_response('200 OK', [
         ('Content-Type', 'text/html'),
         ('Content-Length', str(len(response_body)))
